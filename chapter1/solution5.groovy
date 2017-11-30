@@ -12,7 +12,6 @@ boolean isOneAway( String str1, String str2 ){
 
     char[] master = str1.toCharArray()
     char[] compare = str2.toCharArray()
-    //def compareCount = 0
 
     for( int i = 0; i < master.size() - 1; i++ ){
 
