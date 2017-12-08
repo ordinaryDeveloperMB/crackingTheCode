@@ -1,0 +1,57 @@
+/*
+    Zero Matrix: Write an algorithm such that if an element in an MxN matrix is 0, its entire row and
+    column are set to 0.
+*/
+
+def matrix = generateMatrix( 9, 12 )
+printMatrix( matrix )
+println "----------------"
+printMatrix( zeroifyMatrix( matrix ) )
+
+def generateMatrix( m, n ){
+    def matrix = new Integer[m][n]
+    for( i in 0..m-1 ){
+        for( x in 0..n-1 ){
+            matrix[i][x] = new Random().nextInt(10)
+        }
+    }
+    matrix
+}
+
+def zeroifyMatrix( matrix ){
+    def zeroRows = []
+    def zeroCols = []
+    for( i in 0..matrix.size()-1 ){
+        def zeros = matrix[i].findIndexValues { it == 0 }
+        if( zeros ){
+            zeroRows << i
+            for( zero in zeros ){
+                if( !zeroCols.contains( zero ) ){
+                    //findIndexValues returns long
+                    zeroCols << ( zero as int )
+                }
+            }
+        }
+    }
+
+    //for( zeroRow in zeroRows ){
+    for( l in 0..matrix.size()-1 ){
+        if( zeroRows.contains( l ) ){
+            for( f in 0..matrix[l].size()-1 ){
+                matrix[l][f] = 0
+            }
+        } else {
+            for( zeroCol in zeroCols ){
+                matrix[ l ][ zeroCol ] = 0
+            }
+        }
+    }
+
+    matrix
+}
+
+def printMatrix( matrix ){
+    for( i in 0..matrix.size() - 1 ){
+        println matrix[i]
+    }
+}
